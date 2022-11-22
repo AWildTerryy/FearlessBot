@@ -1,3 +1,5 @@
+Fearless Bot v0.1
+
 The end goal of Fearless bot is to create a discord bot that can automate a session of playing fearless draft using draftlol to ban champions that have been picked/banned previously.
 
 Fearless Draft means after a champion has been picked or banned, then it cannot be picked in future games. Due to 20 champions being used per game, there are only enough champions for about 8 consecutive games before having to start over (currently there are 162 champions in the game)
