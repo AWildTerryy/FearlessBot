@@ -1,0 +1,10 @@
+- My inital goal is to try and automate the process in creating a draft link using draftlol.dawe.gg
+- To expand, it should be able to take a previous draft link and scrape what champions were picked and banned by each side, then create the link for a new draft with all of those champions being banned using the advanced options setting
+- The final step of this would be to create a discord bot that can store the information from consecutive links to allow 3-5 games to be played in succession and successfully store and create drafts each time until the session is over. There will be a simple reset command to clear a list of banned champion names and there could be a previous drafts command that stores the links given to look at the drafts and a banned champions command that shows what champions are in the list 
+- Needed to figure out what to use to scrape a website in python, saw BeautifulSoup, Scrapy and Selenium were the common packages used for it
+- Decided to use Selenium as it seems that it would be necessary to click the advanced options button to get to the settings I want to in the project and would require clicking images after
+- after creating venv, pip install selenium, pip install webdriver_manager
+- webdriver_manager will be a backup if chromedriver fails but its just a backup and should not be needed
+- after opening advanced options, due to the images having to be clicked on versus a button, switched from .click() to execute_script to click on the image
+- originally used xpath for image but this could easily cause problems as champions could be added or switched around in position so decided to use search function on website instead to ban champions one by one
+- this also meant changing the xpath used for the advanced options button which can easily be found by class
