@@ -18,4 +18,12 @@
 - Edited draft creator.py to use bannedchampions.txt to create the ban list (if banned champions.txt doesn't exist it will create a draft with no bans but this shouldn't really be the case...)
 - Forgot I had Python 2.7.18 installed for an old project... needed to recreate venv with Python 3.11.0
 - Find by "" was removed in newer selenium version? fix code for this
+- Tried to run pip install discord in venv but was running into errors, thought it was because I did not have C++ tools installed on this pc (I should have just done this project on my laptop...)
+- Followed a Youtube tutorial for inital discord bot setup (https://www.youtube.com/watch?v=1yLfjMtsV9s); will be hiding my token so these files will not be fully functional... can put a token in the bot.py file and it should work
+- Can also just add my version of the bot using bot invite link
+- Renamed draft creator to draft_creator so it can be imported, same with draft puller -> draft_puller, also edited these files to be functions so responses.py can call it
+- Learned if headless is set to true, the page can be scraped without it being opened on my desktop
+- With the load draft command in responses.py I was expecting it to crash if random text was inserted in the link but it appears if the link is valid it will work regardless of messages after it? Strange but I would assume browser.get() in draft_puller.py can get the url from the string?
+- Draft_creator doesn't seem to work with headless selenium, probably due to using the search bar. This could probably be resolved if the method was changed to just use the images instead of the search bar.
+
 
