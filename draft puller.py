@@ -7,11 +7,11 @@ from os import path
 browser = webdriver.Chrome()
 browser.get('https://draftlol.dawe.gg/NgpQs3mu')
 time.sleep(1)  # note that this page will take longer to load due to images
-bluePick = browser.find_element_by_class_name('roomPickColumn.blue').find_elements_by_tag_name('p')
-redPick = browser.find_element_by_class_name('roomPickColumn.red').find_elements_by_tag_name('p')
+bluePick = browser.find_element('class name', 'roomPickColumn.blue').find_elements('tag name', 'p')
+redPick = browser.find_element('class name', 'roomPickColumn.red').find_elements('tag name', 'p')
 # I noticed each pick is named under the p tag, I can pull the names of each champ from there
-blueBan = browser.find_element_by_class_name('roomBanRow.blue').find_elements_by_tag_name('img')
-redBan = browser.find_element_by_class_name('roomBanRow.red').find_elements_by_tag_name('img')
+blueBan = browser.find_element('class name', 'roomBanRow.blue').find_elements('tag name', 'img')
+redBan = browser.find_element('class name', 'roomBanRow.red').find_elements('tag name', 'img')
 if path.exists('bannedchampions.txt'):
     banList = open('bannedchampions.txt','a')
     banList.write('\n')
