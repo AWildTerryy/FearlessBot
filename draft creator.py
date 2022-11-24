@@ -1,8 +1,9 @@
-# this script should open draftlol, ban champions from a list, then return the draft links
+# this script opens draftlol, ban champions from a list, then returns the draft links
 
 # from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 import time
+from os import path
 
 browser = webdriver.Chrome()
 browser.get('https://draftlol.dawe.gg/')
@@ -21,12 +22,18 @@ def ban_champion(champName):
     championSearch.clear()
 
 
-test = ['Aatrox', 'Ahri', 'Akali', 'Akshan', 'Alistar', 'Amumu', 'Anivia', 'Annie', 'Aphelios', 'Ashe', 'Aurelion Sol',
-        'Azir', 'Bard', 'Bel\'Veth', 'Blitzcrank', 'Brand', 'Braum', 'Caitlyn', 'Camille', 'Cassiopeia']
+if path.exists('bannedchampions.txt'):
+    banList = open('bannedchampions.txt','r')
+    banArray = []
+    for line in banList:
+        if line != '\n':
+            banArray.append(line)
+    for name in banArray:
+        ban_champion(name)
+    banList.close()
 
-for name in test:
-    ban_champion(name)
-
+# if bannedchampions.txt exists, then an array is formed using the list and then banned
+# if the txt file is not there, a fresh draft will be made
 browser.find_element_by_class_name('sendButton').click()
 time.sleep(0.5)  # After banning the champions, click the create button to create the draft and wait for it to load
 blueDraft = browser.find_element_by_class_name('inputBlue').get_property('defaultValue')
