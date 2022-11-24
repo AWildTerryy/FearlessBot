@@ -3,8 +3,18 @@
 - The final step of this would be to create a discord bot that can store the information from consecutive links to allow 3-5 games to be played in succession and successfully store and create drafts each time until the session is over. There will be a simple reset command to clear a list of banned champion names and there could be a previous drafts command that stores the links given to look at the drafts and a banned champions command that shows what champions are in the list 
 - Needed to figure out what to use to scrape a website in python, saw BeautifulSoup, Scrapy and Selenium were the common packages used for it
 - Decided to use Selenium as it seems that it would be necessary to click the advanced options button to get to the settings I want to in the project and would require clicking images after
-- after creating venv, pip install selenium, pip install webdriver_manager
-- webdriver_manager will be a backup if chromedriver fails but its just a backup and should not be needed
-- after opening advanced options, due to the images having to be clicked on versus a button, switched from .click() to execute_script to click on the image
-- originally used xpath for image but this could easily cause problems as champions could be added or switched around in position so decided to use search function on website instead to ban champions one by one
-- this also meant changing the xpath used for the advanced options button which can easily be found by class
+- After creating venv, pip install selenium, pip install webdriver_manager
+- Webdriver_manager will be a backup if chromedriver fails but its just a backup and should not be needed
+- After opening advanced options, due to the images having to be clicked on versus a button, switched from .click() to execute_script to click on the image
+- Originally used xpath for image but this could easily cause problems as champions could be added or switched around in position so decided to use search function on website instead to ban champions one by one
+- This also meant changing the xpath used for the advanced options button which can easily be found by class
+- Got draft creator to work using the search bar, might be better to not use search bar in future but for now it works...
+- Clicks the create draft button after banning the champions via searching one by one, then gets the blue and red drafts created from this button and slices the string created from blueDraft to get the spectate link
+- Using the link in test drafts in order to create the draft puller
+- The picks are seperated by color and the names of each champion are under the 'p' tag so I used that to pull each pick
+- The bans are also separated by color and I can pull the names of each champion via the alt property and img tag
+- After completing this stage, I realized that the next step would be using the results from draft puller to create the list for draft creator, I was thinking the best way to do this would be a txt file due to the fact there will be multiple games which means multiple pulls and these will need to be stored somewhere. The other option was creating a main.py file and having a list that can be used for both files which might be the better choice after creating the discord bot
+- Originally I was going to format the txt file to be easy to read via subtitles but I rather just make it easy to use for draft creator (so no subtitles) and when the bot is created formatting can be done
+- Edited draft creator.py to use bannedchampions.txt to create the ban list (if banned champions.txt doesn't exist it will create a draft with no bans but this shouldn't really be the case...)
+
+
