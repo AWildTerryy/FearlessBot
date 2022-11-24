@@ -1,4 +1,4 @@
-Fearless Bot v0.2
+Fearless Bot v1.0
 
 The end goal of Fearless bot is to create a discord bot that can automate a session of playing fearless draft using draftlol to ban champions that have been picked/banned previously.
 
