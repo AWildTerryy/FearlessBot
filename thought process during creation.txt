@@ -25,5 +25,9 @@
 - Learned if headless is set to true, the page can be scraped without it being opened on my desktop
 - With the load draft command in responses.py I was expecting it to crash if random text was inserted in the link but it appears if the link is valid it will work regardless of messages after it? Strange but I would assume browser.get() in draft_puller.py can get the url from the string?
 - Draft_creator doesn't seem to work with headless selenium, probably due to using the search bar. This could probably be resolved if the method was changed to just use the images instead of the search bar.
-
+- Setting the window size fixed this problem
+- Got rid of !test, added !bans
+- Got rid of !roll, added !side
+- Changed !create draft to return normal text so the links are clickable
+- After some testing, saw Ornn and Vi don't work as intended due to search returning multiple champions, added if statements in ban_champion to compensate
 
