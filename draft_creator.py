@@ -1,4 +1,4 @@
-# this script opens draftlol, ban champions from a list, then returns the draft links
+# this script opens draftlol, ban champions from a list, then returns the draft links in a list
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -8,8 +8,9 @@ from os import path
 
 def create_draft():
     try:
-        options = Options()
-        options.headless = True
+        # options = Options()
+        # options.headless = True
+        # options.add_argument("--window-size=1920,1080")
         browser = webdriver.Chrome()
         browser.get('https://draftlol.dawe.gg/')
         time.sleep(0.5)  # just to let page load, shouldn't take too long
@@ -21,9 +22,25 @@ def create_draft():
 
         def ban_champion(champName):
             # This function will search for a champion, click it in order to ban it, then clear the search field
-            championSearch.send_keys(champName)
-            champion = browser.find_element('class name', 'roomImgListItem')
-            browser.execute_script('arguments[0].click()', champion)
+            # Vi and Ornn return multiple champs when searched, need exceptions
+            # Note that the code used for these two could essentially be used for the whole function, but the else
+            # statement should be faster than storing and looking through a list of 146 champions everytime
+            if champName == 'Ornn\n':
+                championSearch.send_keys(champName)
+                championList = browser.find_element('class name', 'roomChampionsList').find_elements('tag name', 'img')
+                for element in championList:
+                    if (element.get_property('alt')+"\n") == champName:
+                        browser.execute_script('arguments[0].click()', element)
+            elif champName == 'Vi\n':
+                championSearch.send_keys(champName)
+                championList = browser.find_element('class name', 'roomChampionsList').find_elements('tag name', 'img')
+                for element in championList:
+                    if element.get_property('alt') == 'Vi':
+                        browser.execute_script('arguments[0].click()', element)
+            else:
+                championSearch.send_keys(champName)
+                champion = browser.find_element('class name', 'roomImgListItem')
+                browser.execute_script('arguments[0].click()', champion)
             championSearch.clear()
 
 
@@ -31,7 +48,7 @@ def create_draft():
             banList = open('bannedchampions.txt', 'r')
             banArray = []
             for line in banList:
-                if line != '\n':
+                if line != '\n':  # this is needed to ignore the empty line inserted between drafts
                     banArray.append(line)
             for name in banArray:
                 ban_champion(name)
