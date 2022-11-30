@@ -8,10 +8,10 @@ from os import path
 
 def create_draft():
     try:
-        # options = Options()
-        # options.headless = True
-        # options.add_argument("--window-size=1920,1080")
-        browser = webdriver.Chrome()
+        options = Options()
+        options.headless = True
+        options.add_argument("--window-size=1920,1080")
+        browser = webdriver.Chrome(options=options)
         browser.get('https://draftlol.dawe.gg/')
         time.sleep(0.5)  # just to let page load, shouldn't take too long
         browser.find_element('class name', 'advancedOptionsButton').click()
