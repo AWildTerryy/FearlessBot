@@ -106,5 +106,5 @@ def handle_response(message):
                '!load draft (url) - loads a draftlol link into bannedchampions.txt                                 \n' \
                '!create draft - creates a draft based on bannedchampions.txt                                       \n' \
                '!add champion (champion) - manually add a champion to bannedchampions.txt                          \n' \
-               '!remove champion (champion) - look for and remove a champion from bannedchampions.txt             `\n'
+               '!remove champion (champion) - remove a champion from bannedchampions.txt                          `\n'
 
