@@ -21,8 +21,8 @@ def handle_response(message):
             os.remove('bannedchampions.txt')
             os.remove('draftlinks.txt')
         else:
-            return '`There was no banlist or draftlist`'
-        return '`The banlist and draftlist has been cleared`'
+            return '`There was no banlist or draftlist.`'
+        return '`The banlist and draftlist have been cleared!`'
     if p_message == 'create draft':
         draft = draft_creator.create_draft()
         return str(f'Blue pick: {draft[0]}\nRed pick: {draft[1]}\nSpectate: {draft[2]}')
@@ -35,7 +35,7 @@ def handle_response(message):
             banList.close()
             return banMessage
         else:
-            return '`The ban list is currently empty`'
+            return '`The ban list is currently empty.`'
     if p_message == 'drafts':
         if os.path.exists('draftlinks.txt'):
             draftList = open('draftlinks.txt', 'r')
@@ -45,7 +45,7 @@ def handle_response(message):
             draftList.close()
             return draftMessage
         else:
-            return '`The draft list is currently empty`'
+            return '`The draft list is currently empty.`'
     if 'add champion' in p_message:
         if os.path.exists('bannedchampions.txt'):
             banList = open('bannedchampions.txt','r+')  # using r+ to read and write in the file so file doesn't get truncated
@@ -61,6 +61,26 @@ def handle_response(message):
             banList.write(message[13:] + '\n')
             banList.close()
             return str(f'`{message[13:]} is added to the ban list!`')
+    if 'remove champion' in p_message:
+        if os.path.exists('bannedchampions.txt'):
+            champFound = False
+            banList = open('bannedchampions.txt','r+')
+            tempList = banList.readlines()
+            banList.seek(0)
+            banList.truncate()
+            for line in tempList:
+                if line == (message[16:]+'\n'):
+                    champFound = True
+                    continue
+                else:
+                    banList.write(line)
+            banList.close()
+            if champFound:
+                return str(f'`{message[16:]} was deleted from the ban list!`')
+            else:
+                return str(f'`{message[16:]} was not found in the ban list!`')
+        else:
+            return '`The ban list is currently empty.`'
     if 'load draft' in p_message:
         try:
             link = message[10:]  # cannot use message.lower as the link is case-sensitive
@@ -75,14 +95,16 @@ def handle_response(message):
             return draft_puller.load_draft(link)
         except Exception as e:
             print(e)
-            return '`Your link could not be processed`'
+            return '`Your link could not be processed.`'
     if p_message == 'commands':
         return '`All commands can be substituted with a ? to be sent to your DMs!                                  \n' \
                '!side - randomly picks a side, Red or Blue                                                         \n' \
                '!help - tells you to use !commands                                                                 \n' \
                '!bans - returns a list of champions in bannedchampions.txt                                         \n' \
                '!drafts - returns a list of drafts in draftlinks.txt                                               \n' \
-               '!reset draft - clears the bannedchampions.txt                                                      \n' \
+               '!reset draft - clears the bannedchampions.txt and draftlinks.txt                                   \n' \
                '!load draft (url) - loads a draftlol link into bannedchampions.txt                                 \n' \
                '!create draft - creates a draft based on bannedchampions.txt                                       \n' \
-               '!add champion - manually add a champion to bannedchampions.txt                                    `\n'
+               '!add champion (champion) - manually add a champion to bannedchampions.txt                          \n' \
+               '!remove champion (champion) - look for and remove a champion from bannedchampions.txt             `\n'
+
