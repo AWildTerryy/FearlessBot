@@ -30,4 +30,6 @@
 - Got rid of !roll, added !side
 - Changed !create draft to return normal text so the links are clickable
 - After some testing, saw Ornn and Vi don't work as intended due to search returning multiple champions, added if statements in ban_champion to compensate
-
+- Added !drafts to see the previous drafts, draftlist.txt is created when drafts are loaded and !drafts will display the info in draftlist.txt
+- Friend asked about error checking when pulling drafts, my initial thought process was checking the ban list before adding a ban was too costly. It could be done by using a set and sorting the champions by their roles like done on the website. However, this feature just doesn't seem worth the investment due to this error not being expected when the bot is used to create drafts from consecutive games.
+- Decided to add "remove champion" if "add champion" is there so we can use add and remove before actually creating drafts
