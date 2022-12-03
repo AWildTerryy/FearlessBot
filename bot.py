@@ -34,7 +34,7 @@ def run_discord_bot():
         elif user_message[0] == '!':
             user_message = user_message[1:]
             await send_message(message, user_message, is_private=False)
-        elif user_message == 'who':
+        elif user_message.lower() == 'who':
             await message.channel.send('asked')  # just to test understanding
         else:
             return
